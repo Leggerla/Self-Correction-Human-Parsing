@@ -141,12 +141,12 @@ def main():
 
             logits_result = transform_logits(upsample_output.data.cpu().numpy(), c, s, w, h, input_size=input_size)
             parsing_result = np.argmax(logits_result, axis=2)
-            parsing_result_path = os.path.join(args.output_dir, img_name[:-4] + '.png')
+            parsing_result_path = os.path.join(args.output_dir, img_name.split('.')[0] + '.png')
             output_img = Image.fromarray(np.asarray(parsing_result, dtype=np.uint8))
             #output_img.putpalette(palette)
             output_img.save(parsing_result_path)
             if args.logits:
-                logits_result_path = os.path.join(args.output_dir, img_name[:-4] + '.npy')
+                logits_result_path = os.path.join(args.output_dir, img_name.split('.')[0] + '.npy')
                 np.save(logits_result_path, logits_result)
     return
 
